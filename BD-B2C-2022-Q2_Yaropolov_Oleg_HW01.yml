@@ -5,7 +5,7 @@ intermediate.hdfs_list_recursively:
 intermediate.hdfs_list_recursively_human_readable:
     stdin: "hdfs dfs -ls -h -R /data/wiki"
 intermediate.hdfs_file_replication_factor:
-    stdin: 5
+    stdin: 3
 intermediate.hdfs_folder_replication_factor:
     stdin: 0
 intermediate.hdfs_describe_size:
@@ -59,18 +59,18 @@ advanced.hdfs_set_file_replication:
 advanced.hdfs_get_files_and_block:
     stdin: "hdfs fsck test_updated.bash_history -files -blocks -locations"
 advanced.hdfs_get_block_information:
-    stdin: "hdfs fsck test_updated.bash_history -blockId blk_1106590346"
+    stdin: "hdfs fsck -blockId blk_1106590346"
 advanced.hdfs_dfs_architecture:
     stdin: |-
         hdfs fsck test_updated.bash_history -files -blocks -locations
         sudo -i -u hdfsuser
-        ssh hdfsuser@brain-node3.bigdatateam.org
+        ssh brain-node3.bigdatateam.org
         find /srv/disk1/ -name blk_1106590346
         tail /srv/disk1/hadoop/datanode/current/BP-981064612-78.46.171.101-1581506447497/current/finalized/subdir21/subdir26/blk_1106590346
         exit
-        ll -h nn_example
-        tail nn_example/fsimage_0000000000030725661
-        tail nn_example/edits_0000000000030725662-0000000000030779867
+        hdfs dfs -ls /data/namenode_example/current
+        hdfs dfs -cat /data/namenode_example/current/fsimage_0000000000030725661
+        hdfs dfs -cat /data/namenode_example/current/edits_0000000000029536578-0000000000030039785
 advanced.webhdfs_read_100B:
     stdin: |-
         curl -i "http://brain-node4.bigdatateam.org:50075/webhdfs/v1/user/bdb2c2022q2_yaropolov/test_updated.bash_history?op=OPEN&namenoderpcaddress=brain-master.bigdatateam.org:8020&length=100"
