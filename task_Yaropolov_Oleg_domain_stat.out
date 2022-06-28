@@ -1,0 +1,17 @@
+-------------------------------------------
+Batch: 4
+-------------------------------------------
++------------------+----+------+
+|domain            |view|unique|
++------------------+----+------+
+|news.rambler.ru   |17  |15    |
+|www.rambler.ru    |10  |9     |
+|m.lenta.ru        |7   |6     |
+|www.fedsfm.ru     |5   |1     |
+|www.yaplakal.com  |5   |5     |
+|www.wmj.ru        |5   |5     |
+|www.championat.com|5   |5     |
+|rutube.ru         |5   |5     |
+|ria.ru            |4   |4     |
+|book-online.com.ua|4   |4     |
++------------------+----+------+
