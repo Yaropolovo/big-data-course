@@ -1,0 +1,25 @@
+
+Залить файл с локальной машины на brain-client
+scp -r /c/Programs/Git/big-data-course/public_examples/map_reduce/word_count bdb2c2022q2_yaropolov@brain-client.bigdatateam.org:/home/group_bdb2c2022q2/bdb2c2022q2_yaropolov
+
+Пробрасываем ssh соединение со всеми нужными портами (можно добавить флаг -v для подробной инфы по соединению)
+ssh bdb2c2022q2_yaropolov@brain-client.bigdatateam.org -L 50070:brain-master.bigdatateam.org:50070 -L 8088:brain-master.bigdatateam.org:8088 -L 19888:brain-master.bigdatateam.org:19888
+ssh -A bdb2c2022q2_yaropolov@brain-client.bigdatateam.org -L 50070:brain-master.bigdatateam.org:50070 -L 8088:brain-master.bigdatateam.org:8088 -L 19888:brain-master.bigdatateam.org:19888 -L 18080:brain-master.bigdatateam.org:18080 -L 21805:localhost:21805
+
+
+bdb2c2022q2_yaropolov
+
+applications: http://localhost:8088/cluster
+web: http://localhost:50070/explorer.html#/
+
+
+Pylint работает в Terminal -> Command Prompt
+pylint BD_B2C_2022_Q2_Yaropolov_Oleg_SparkNestedCRUD.py -d invalid-name,missing-docstring --ignored-modules=pyspark.sql.functions
+
+PYSPARK_SUBMIT_ARGS=' --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 pyspark-shell' jupyter notebook --port 21805
+PYSPARK_SUBMIT_ARGS=' --conf spark.cassandra.connection.host=brain-node1 --packages com.datastax.spark:spark-cassandra-connector_2.11:2.4.2 --conf spark.cassandra.auth.username=bdb2c2022q2_yaropolov' jupyter notebook --port 21805
+PYSPARK_DRIVER_PYTHON=python3.6 PYSPARK_PYTHON=python3.6 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0 task_Yaropolov_Oleg_domain_stat.py --topic-name page_views --starting-offsets latest --processing-time "5 second" --kafka-brokers brain-node1.bigdatateam.org:9092,brain-node2.bigdatateam.org:9092,brain-node3.bigdatateam.org:9092
+spark-submit --conf spark.cassandra.connection.host=${cassandra_endpoint} --packages com.datastax.spark:spark-cassandra-connector_2.11:2.4.2 task_Yaropolov_Oleg_movies.py bdb2c2022q2_yaropolov_test
+
+
+hive -v --database=bdb2c2022q2_yaropolov --hivevar table_name=logs_orc -f task_*_speedup_query.hql
